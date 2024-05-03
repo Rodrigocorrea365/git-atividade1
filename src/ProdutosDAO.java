@@ -26,38 +26,12 @@ public class ProdutosDAO {
             stmt.setString(1, produto.getNome());
             stmt.setInt(2, produto.getValor());
             stmt.execute();
-            
 
         } catch (Exception e) {
             System.out.println("Erro ao inserir empresa: " + e.getMessage());
         }
     }
 
-
-    /*Connection conn;
-    //PreparedStatement prep;
-    ResultSet resultset;
-    PreparedStatement entrada;
-    
-
-    public int cadastrarProduto(ProdutosDTO produto) {
-
-        conn = new conectaDAO().connectDB();
-        int status;
-        try {
-            entrada = conn.prepareStatement("INSERT INTO produtos(nome,valor) VALUES (?,?)");
-            entrada.setString(1, produto.getNome());
-            entrada.setInt(2, produto.getValor());
-           // entrada.setString(3, produto.getStatus());
-
-            status = entrada.executeUpdate();
-            return status;
-        } catch (SQLException e) {
-            System.out.println("erro" + e.getMessage());
-            return e.getErrorCode();
-        }
-    }
-     */
     public ArrayList<ProdutosDTO> listarProdutos() {
 
         return listagem;

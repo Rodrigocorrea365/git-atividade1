@@ -5,12 +5,14 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 public class conectaDAO {
-Connection conn;
+
+    Connection conn;
+
     public Connection connectDB() {
 
         try {
 
-             conn = DriverManager.getConnection("jdbc:mysql://localhost/leiloes", // linha de conexao
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/leiloes", // linha de conexao
                     "root", // usuario do mysql
                     "Realmadrid45,");// senha do mysql
             System.out.println("conexao bem sucedida");
