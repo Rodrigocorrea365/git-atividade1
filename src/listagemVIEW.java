@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -12,12 +13,35 @@ import javax.swing.table.DefaultTableModel;
  */
 public class listagemVIEW extends javax.swing.JFrame {
 
+    private void preenchertabela() {
+
+        ProdutosDAO dados = new ProdutosDAO();
+        boolean status = dados.conectar();
+        List<ProdutosDTO> listapro = dados.getpro();
+
+        DefaultTableModel tabelapro = (DefaultTableModel) listaProdutos.getModel();
+        //tabelapro.setNumRows(0);
+
+        for (ProdutosDTO pro : listapro) {
+            Object[] obj = new Object[]{
+                pro.getNome(),
+                pro.getValor(),
+                pro.getStatus()
+            };
+            tabelapro.addRow(obj);
+
+        }
+
+    }
+
     /**
      * Creates new form listagemVIEW
      */
     public listagemVIEW() {
         initComponents();
-        listarProdutos();
+         listarProdutos();
+        preenchertabela();
+
     }
 
     /**
@@ -133,6 +157,7 @@ public class listagemVIEW extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
 
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
         String id = id_produto_venda.getText();
