@@ -49,7 +49,7 @@ public class ProdutosDAO {
     }
 
     public List<ProdutosDTO> getpro() {
-         ProdutosDTO DTt = new ProdutosDTO();
+        ProdutosDTO DTt = new ProdutosDTO();
         List<ProdutosDTO> listapro = new ArrayList<>();
         String sql = "SELECT * FROM produtos";
 
@@ -85,6 +85,47 @@ public class ProdutosDAO {
 
         return listagem;
 
+    }
+
+    public void venderProduto(int id) {
+        try {
+            ProdutosDTO DTt = new ProdutosDTO();
+            String sql = "update produtos set Status =? where id =?";
+            PreparedStatement entrada = this.conn.prepareStatement(sql);
+            entrada.setString(1, "vendido");
+            entrada.setInt(2, id);
+            int itensvendidos = entrada.executeUpdate();
+            if (itensvendidos == 0) {
+                throw new SQLException("Não há produtos vendidos.");
+            }
+        } catch (Exception w) {
+            System.out.println("erro" + w.getMessage());
+        }
+    }
+
+    public void listaproduto(String categoria) {
+        List<ProdutosDTO> listapro = new ArrayList<>();
+        String sql = "SELECT r FROM produto r WHERE (r.status LIKE : vendido)";
+        if (conn != null) {
+            try {
+                PreparedStatement entrada = this.conn.prepareStatement(sql);
+                resultado = entrada.executeQuery();
+                while (resultado.next()) {
+                    ProdutosDTO produto = new ProdutosDTO();
+                    produto.setId(resultado.getInt("id"));
+                    produto.setNome(resultado.getString("nome"));
+                    listapro.add(produto);
+                }
+                resultado.close();
+                entrada.close();
+                conn.close();
+
+            } catch (Exception e) {
+                System.out.println("erro" + e.getMessage());
+
+            }
+
+        }
     }
 
 }
